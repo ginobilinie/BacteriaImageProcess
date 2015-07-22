@@ -8,7 +8,7 @@
 
 function pLabels=predictLables_svm()
 addpath('liblinear/');
-traindatapath='../results/feature4SVM/allImages/features4SVM_layer1.mat';
+traindatapath='../results/feature4SVM/allImages/features4SVM.mat';
 
 
 ifTrain=0;
@@ -37,42 +37,42 @@ trainedlabel=trainLabelMat;
 if ifTrain
     N=size(trainBetas,2);
     model = trainll(trainLabelMat',sparse(trainBetas'),'-s 6 -c 1 -v 5','row');
-%     model = trainll(trainLabelMat',sparse(trainBetas'),'-s 6 -c 1','row');
-%     groundpredictmodel=model;
-%     save(sprintf('svmmodel_%d_groundpredict',num),'groundpredictmodel');
-%     
-%     testLabelMat=trainedlabel;
-%     testBetas=trainBetas;
-%     pLabels = predictll(testLabelMat',sparse(testBetas'),model,'','row');
-%     cnt=countif(pLabels,testLabelMat');
-%     foreInd=find(testLabelMat==1);
-%     backInd=find(testLabelMat==-1);
-%     foreLabel=testLabelMat(foreInd);
-%     backLabel=testLabelMat(backInd);
-%     forePatch=testBetas(:,foreInd);
-%     backPatch=testBetas(:,backInd);
-%     pForeLabels = predictll(foreLabel',sparse(forePatch'),model,'','row');
-%     foreCnt=countif(pForeLabels,foreLabel');
-%     pBackLabels = predictll(backLabel',sparse(backPatch'),model,'','row');
-%     backCnt=countif(pBackLabels,backLabel');
+      model = trainll(trainLabelMat',sparse(trainBetas'),'-s 6 -c 1','row');
+      groundpredictmodel=model;
+      save(sprintf('svmmodel_%d_groundpredict',num),'groundpredictmodel');
+      
+      testLabelMat=trainedlabel;
+      testBetas=trainBetas;
+      pLabels = predictll(testLabelMat',sparse(testBetas'),model,'','row');
+      cnt=countif(pLabels,testLabelMat');
+      foreInd=find(testLabelMat==1);
+      backInd=find(testLabelMat==-1);
+      foreLabel=testLabelMat(foreInd);
+      backLabel=testLabelMat(backInd);
+      forePatch=testBetas(:,foreInd);
+      backPatch=testBetas(:,backInd);
+      pForeLabels = predictll(foreLabel',sparse(forePatch'),model,'','row');
+      foreCnt=countif(pForeLabels,foreLabel');
+      pBackLabels = predictll(backLabel',sparse(backPatch'),model,'','row');
+      backCnt=countif(pBackLabels,backLabel');
     
-%     rate=0.8;
-%     N0=floor(N*rate);
+      rate=0.8;
+      N0=floor(N*rate);
+  
+      trainindex=randperm(N,N0);
+      testindex=setdiff(1:N,trainindex);
+  
+      X_train=trainBetas(:,trainindex);
+      y_train=trainLabelMat(trainindex);
 % 
-%     trainindex=randperm(N,N0);
-%     testindex=setdiff(1:N,trainindex);
-% 
-%     X_train=trainBetas(:,trainindex);
-%     y_train=trainLabelMat(trainindex);
-% 
-%     X_test=trainBetas(:,testindex);
-%     y_test=trainLabelMat(testindex);
-% 
-%     K=1;
-%     y = knn(X_test, X_train, y_train, K);
-%     cnt=countif(y,y_test);
-%     tt=y-y_test;
-%     fprintf('the prediction result when cross validation: %d/%d\n',cnt,length(y));
+      X_test=trainBetas(:,testindex);
+      y_test=trainLabelMat(testindex);
+  
+      K=1;
+      y = knn(X_test, X_train, y_train, K);
+      cnt=countif(y,y_test);
+      tt=y-y_test;
+      fprintf('the prediction result when cross validation: %d/%d\n',cnt,length(y));
 end
 
 if ifTest
@@ -130,7 +130,7 @@ if ifTest
             recoverImage1=repmat(ylabel,d^2,1);%after prior info process
             display_network_layer1(recoverImage1);
             outpath='../results/cdbnvisual/specinfo/';
-            saveas(gcf,[outpath,sprintf('spec%d-%d-day%d-ground_predict_sift.jpg',spec1,spec2,day)]);
+            saveas(gcf,[outpath,sprintf('spec%d-%d-day%d-ground_predict.jpg',spec1,spec2,day)]);
             if ~isempty(testLabelMat')%show groudn truth if there is
                 recoverTruthImage=repmat(testLabelMat,d^2,1);
                 display_network_layer1(recoverTruthImage);
