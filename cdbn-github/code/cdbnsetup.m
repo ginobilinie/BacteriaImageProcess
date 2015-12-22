@@ -1,0 +1,23 @@
+function cdbn=cdbnsetup()
+cdbn.crbm{1}.filtersize=8;
+cdbn.crbm{2}.filtersize=6;
+cdbn.crbm{1}.num_filters=36;
+cdbn.crbm{2}.num_filters=36;%test to save time
+cdbn.crbm{1}.numchannels=1;%if it is rgb:3, if it is gray 1
+cdbn.crbm{2}.numchannels=cdbn.crbm{1}.num_filters;
+cdbn.crbm{1}.layer=1;%指出该次crbm的输入层
+cdbn.crbm{2}.layer=2;
+cdbn.crbm{1}.W = 0.01*randn(cdbn.crbm{1}.filtersize^2, cdbn.crbm{1}.numchannels, cdbn.crbm{1}.num_filters);
+cdbn.crbm{2}.W = 0.01*randn(cdbn.crbm{2}.filtersize^2, cdbn.crbm{2}.numchannels, cdbn.crbm{2}.num_filters);
+cdbn.crbm{1}.vbias_vec = zeros(cdbn.crbm{1}.numchannels,1);
+cdbn.crbm{2}.vbias_vec = zeros(cdbn.crbm{2}.numchannels,1);
+cdbn.crbm{1}.hbias_vec = -0.1*ones(cdbn.crbm{1}.num_filters,1);
+cdbn.crbm{2}.hbias_vec = -0.1*ones(cdbn.crbm{2}.num_filters,1);
+cdbn.crbm{1}.Winc=0;
+cdbn.crbm{1}.vbiasinc=0;
+cdbn.crbm{1}.hbiasinc=0;
+cdbn.crbm{2}.Winc=0;
+cdbn.crbm{2}.vbiasinc=0;
+cdbn.crbm{2}.hbiasinc=0;
+cdbn.size=2;%the layers of crbms, note: I donot take pooling layer as a layer, only take convolution layer as a layer, but I indeed do pooling
+end
