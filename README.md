@@ -10,7 +10,7 @@ In the second part, we try to identify what bacteria speices are in this image, 
 
 Tools for 2nd part is from caffe, and the prototxt files are provided, also, the models are provided.
 
-If you are interested in this project, you can refer to http://dl.acm.org/citation.cfm?id=2808751 for more details. And if you want to use our CRBM data, please cite our paper:
+If you are interested in this project, you can refer to http://dl.acm.org/citation.cfm?id=2808751 for more details. And if you want to our code or model, please cite our paper:
 
 @inproceedings{nie2015deep,
   title={A deep framework for bacterial image segmentation and classification},
