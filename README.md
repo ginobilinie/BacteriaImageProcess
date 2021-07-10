@@ -12,6 +12,7 @@ Tools for 2nd part is from caffe, and the prototxt files are provided, also, the
 
 If you are interested in this project, you can refer to http://dl.acm.org/citation.cfm?id=2808751 for more details. And if you want to our code or model, please cite our paper:
 
+```
 @inproceedings{nie2015deep,
   title={A deep framework for bacterial image segmentation and classification},
   author={Nie, Dong and Shank, Elizabeth A and Jojic, Vladimir},
@@ -20,5 +21,6 @@ If you are interested in this project, you can refer to http://dl.acm.org/citati
   year={2015},
   organization={ACM}
 }
+```
 
 Thanks.
